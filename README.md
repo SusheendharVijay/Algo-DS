@@ -1,2 +1,2 @@
 # Algo-DS
-Algoritms and Data structures implementations in JavaScript 
+Algorithms and Data structures implementations in JavaScript 
