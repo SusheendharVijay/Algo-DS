@@ -30,11 +30,13 @@ class SinglyLinkedList {
       return undefined;
     }
     let previous = this.head;
-    let current = this.head.next;
+    let current = previous;
+  
 
-    while (current.next !== null) {
-      previous = previous.next;
-      current = current.next;
+    while (current.next) {
+      
+      previous = current; 
+      current= current.next;
     }
 
     previous.next = null;
@@ -46,4 +48,35 @@ class SinglyLinkedList {
     }
     return current;
   }
+  shift() {
+    if (!this.head) {
+      return undefined;
+    }
+
+    let currentHead = this.head;
+
+    this.head = this.head.next;
+
+    this.length--;
+    if (this.length === 0) {
+      this.tail = null;
+      this.head = null;
+    }
+    return currentHead;
+  }
+
+  unshift(val){
+      let newNode = new Node(val);
+      newNode.next = this.head;
+     this.head = newNode;
+     if(!this.tail){
+         this.tail= newNode;
+     }
+        
+      this.length++;
+      return this; 
+
+  }
+}
+
 }
