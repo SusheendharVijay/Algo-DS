@@ -100,7 +100,7 @@ class DoublyLinkedList {
     }
   }
   set(index, value) {
-    let node = get(index);
+    let node = this.get(index);
     if (node) {
       node.val = value;
       return true;
