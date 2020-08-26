@@ -1,3 +1,5 @@
+const { createReadStream } = require("fs");
+
 class Node {
   constructor(val) {
     this.val = val;
@@ -144,6 +146,25 @@ class DoublyLinkedList {
     }
     return undefined;
   }
+  reverse() {
+    if (this.length === 0 || this.length === 1) return;
+    let current = this.head;
+    this.head = this.tail;
+    this.tail = current;
+
+    let nextNode;
+    let prevNode = null;
+
+    while (current) {
+      nextNode = current.next;
+      current.next = prevNode;
+      if (prevNode) prevNode.prev = current;
+
+      prevNode = current;
+      current = nextNode;
+    }
+  }
 }
 
 let newList = new DoublyLinkedList();
+let;
