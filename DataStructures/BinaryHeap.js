@@ -34,7 +34,7 @@ class MaxBinaryHeap {
     // here remove refers to removing the root element, max in maxheap and min in minheap
     let array = this.heap;
     this.swapHeap(0, array.length - 1);
-    let removed = array.pop();
+    let deleted = array.pop();
     // sink down
     let currentIndex = 0;
     let childIndex = getLargerChild(currentIndex);
@@ -47,7 +47,7 @@ class MaxBinaryHeap {
       currentIndex = childIndex;
       childIndex = getLargerChild(currentIndex);
     }
-    return removed;
+    return deleted;
   }
   swapHeap(idx1, idx2) {
     [this.heap[idx1], this.heap[idx2]] = [this.heap[idx2], this.heap[idx1]];
