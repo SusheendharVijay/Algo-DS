@@ -54,4 +54,25 @@ class Graph {
     }
     return traversal;
   }
+  BFS(vertex) {
+    let queue = [vertex];
+    let traversal = [];
+    let visited = {};
+    let current;
+    while (queue.length) {
+      current = queue.shift();
+      if (!visited[current]) {
+        traversal.push(current);
+        visited[current] = true;
+
+        for (let neighbor of this.adjacencyList[current]) {
+          if (!visited[neighbor]) {
+            queue.push(neighbor);
+            visited[current] = true;
+          }
+        }
+      }
+    }
+    return traversal;
+  }
 }
