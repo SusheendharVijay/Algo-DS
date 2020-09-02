@@ -1,15 +1,3 @@
-class weightedGraph {
-  constructor() {
-    this.adjacencyList = [];
-  }
-  addVertex(vertex) {
-    if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
-  }
-  addEdge(v1, v2, weight) {
-    this.adjacencyList[v1].push({ node: v2, weight });
-    this.adjacencyList[v2].push({ node: v1, weight });
-  }
-}
 class simplePriorityQueue {
   constructor() {
     this.queue = [];
@@ -23,6 +11,43 @@ class simplePriorityQueue {
   }
   sort() {
     this.queue.sort((a, b) => a.priority - b.priority);
+  }
+}
+class weightedGraph {
+  constructor() {
+    this.adjacencyList = {};
+  }
+  addVertex(vertex) {
+    if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+  }
+  addEdge(v1, v2, weight) {
+    this.adjacencyList[v1].push({ node: v2, weight });
+    this.adjacencyList[v2].push({ node: v1, weight });
+  }
+  Dijkstra(start, final) {
+    const nodes = new simplePriorityQueue();
+    const distances = {};
+    const previous = {};
+    let smallest;
+
+    for (let vertex in this.adjacencyList) {
+      if (vertex === start) {
+        distances[vertex] = 0;
+        nodes.enqueue(vertex, 0);
+      } else {
+        distances[vertex] = Infinity;
+        nodes.enqueue(vertex, Infinity);
+      }
+      previous[vertex] = null;
+    }
+    while(nodes.queue.length){
+        smallest  = nodes.dequeue();
+
+        if(smallest||distances[smallest]!==Infinity){
+            for(let neighbor of )
+
+        }
+    }
   }
 }
 var graph = new WeightedGraph();
