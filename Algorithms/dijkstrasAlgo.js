@@ -29,7 +29,7 @@ class weightedGraph {
     const distances = {};
     const previous = {};
     let smallest;
-
+    let path = [];
     for (let vertex in this.adjacencyList) {
       if (vertex === start) {
         distances[vertex] = 0;
@@ -40,17 +40,32 @@ class weightedGraph {
       }
       previous[vertex] = null;
     }
-    while(nodes.queue.length){
-        smallest  = nodes.dequeue();
-
-        if(smallest||distances[smallest]!==Infinity){
-            for(let neighbor of )
-
+    while (nodes.queue.length) {
+      smallest = nodes.dequeue().val;
+      if (smallest === final) {
+        while (previous[smallest]) {
+          path.push(smallest);
+          path.push("->");
+          smallest = previous[smallest];
         }
+        path.push(smallest);
+        return path.reverse().join("");
+      }
+
+      if (smallest || distances[smallest] !== Infinity) {
+        for (let neighbor of this.adjacencyList[smallest]) {
+          let calculated = neighbor.weight + distances[smallest];
+          if (calculated < distances[neighbor.node]) {
+            distances[neighbor.node] = calculated;
+            previous[neighbor.node] = smallest;
+            nodes.enqueue(neighbor.node, calculated);
+          }
+        }
+      }
     }
   }
 }
-var graph = new WeightedGraph();
+var graph = new weightedGraph();
 graph.addVertex("A");
 graph.addVertex("B");
 graph.addVertex("C");
