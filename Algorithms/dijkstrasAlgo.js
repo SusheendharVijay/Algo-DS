@@ -1,4 +1,5 @@
 class simplePriorityQueue {
+  // a simple priority queue
   constructor() {
     this.queue = [];
   }
@@ -13,6 +14,76 @@ class simplePriorityQueue {
     this.queue.sort((a, b) => a.priority - b.priority);
   }
 }
+class Node {
+  constructor(val, priority) {
+    this.val = val;
+    this.priority = priority;
+  }
+}
+class PriorityQueue {
+  // fast priority queue log(n) insert and delete times. // smaller value is higher priority.
+  constructor() {
+    this.queue = [];
+  }
+  enqueue(val, priority) {
+    let node = new Node(val, priority);
+    let array = this.queue;
+    array.push(node);
+    let currentIndex = array.length - 1;
+    let parentIndex = Math.floor((currentIndex - 1) / 2);
+    while (
+      parentIndex >= 0 &&
+      array[currentIndex].priority <= array[parentIndex].priority
+    ) {
+      [array[parentIndex], array[currentIndex]] = [
+        array[currentIndex],
+        array[parentIndex],
+      ];
+      currentIndex = parentIndex;
+      parentIndex = Math.floor((currentIndex - 1) / 2);
+    }
+  }
+  dequeue() {
+    function getLargerChild(currentIndex) {
+      let leftChild = array[2 * currentIndex + 1];
+      let rightChild = array[2 * currentIndex + 2];
+      let childNode;
+      if (rightChild === undefined && leftChild !== undefined)
+        // just checking if the elements are in the array or not. if its more than lenght
+        return array.indexOf(leftChild);
+      if (leftChild === undefined && rightChild !== undefined)
+        return array.indexOf(rightChild);
+      if (leftChild === undefined && rightChild === undefined)
+        return array.length; // breaking the loop.
+
+      if (leftChild.priority <= rightChild.priority) childNode = leftChild;
+      else childNode = rightChild;
+      let childIndex = array.indexOf(childNode);
+      return childIndex;
+    }
+    // here remove refers to removing the root element, max in maxheap and min in minheap
+    let array = this.queue;
+    this.swapHeap(0, array.length - 1);
+    let removed = array.pop();
+    // sink down
+    let currentIndex = 0;
+    let childIndex = getLargerChild(currentIndex);
+
+    while (
+      childIndex < array.length &&
+      array[currentIndex].priority >= array[childIndex].priority
+    ) {
+      this.swapHeap(currentIndex, childIndex);
+      currentIndex = childIndex;
+      childIndex = getLargerChild(currentIndex);
+    }
+    return removed;
+  }
+  swapHeap(idx1, idx2) {
+    [this.queue[idx1], this.queue[idx2]] = [this.queue[idx2], this.queue[idx1]];
+  }
+}
+
 class weightedGraph {
   constructor() {
     this.adjacencyList = {};
@@ -25,7 +96,7 @@ class weightedGraph {
     this.adjacencyList[v2].push({ node: v1, weight });
   }
   Dijkstra(start, final) {
-    const nodes = new simplePriorityQueue();
+    const nodes = new PriorityQueue();
     const distances = {};
     const previous = {};
     let smallest;
